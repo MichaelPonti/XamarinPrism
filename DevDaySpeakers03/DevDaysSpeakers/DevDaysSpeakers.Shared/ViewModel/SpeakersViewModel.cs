@@ -18,9 +18,12 @@ namespace DevDaysSpeakers.ViewModel
 {
 	public class SpeakersViewModel : BaseViewModel
 	{
-		public SpeakersViewModel()
+		private Services.ISpeakersService _speakersService = null;
+
+		public SpeakersViewModel(Services.ISpeakersService speakersService)
 			: base()
 		{
+			_speakersService = speakersService;
 		}
 
 		public ObservableCollection<Speaker> Speakers { get; set; } =
@@ -58,20 +61,10 @@ namespace DevDaysSpeakers.ViewModel
 			{
 				IsBusy = true;
 
-				using (var client = new HttpClient())
-				{
-					//grab json from server
-					var json = await client.GetStringAsync("http://demo4404797.mockable.io/speakers");
-
-					//Deserialize json
-					var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
-
-					//Load speakers into list
-					Speakers.Clear();
-					foreach (var item in items)
-						Speakers.Add(item);
-				}
-
+				var items = await _speakersService.GetAllSpeakersAsync();
+				Speakers.Clear();
+				foreach (var item in items)
+					Speakers.Add(item);
 			}
 			catch (Exception ex)
 			{

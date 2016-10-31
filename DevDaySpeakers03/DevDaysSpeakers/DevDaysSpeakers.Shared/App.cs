@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
+using Microsoft.Practices.Unity;
+
 
 namespace DevDaysSpeakers
 {
@@ -23,6 +25,7 @@ namespace DevDaysSpeakers
 
 		protected override void RegisterTypes()
 		{
+			Container.RegisterType<Services.ISpeakersService, Services.SpeakersService>();
 			Container.RegisterTypeForNavigation<View.SpeakersPage, ViewModel.SpeakersViewModel>();
 		}
 
