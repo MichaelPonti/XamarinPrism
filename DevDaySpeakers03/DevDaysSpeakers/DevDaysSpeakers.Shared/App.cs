@@ -25,7 +25,13 @@ namespace DevDaysSpeakers
 
 		protected override void RegisterTypes()
 		{
+#if DEBUG
+			/// testing view models etc, use dummy data source
 			Container.RegisterType<Services.ISpeakersService, Services.SpeakersService>();
+#else
+			/// use production data source
+			Container.RegisterType<Services.ISpeakersService, Services.WebApiSpeakersService>();
+#endif
 			Container.RegisterTypeForNavigation<View.SpeakersPage, ViewModel.SpeakersViewModel>();
 		}
 

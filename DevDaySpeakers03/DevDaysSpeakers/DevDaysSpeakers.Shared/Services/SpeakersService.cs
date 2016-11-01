@@ -8,6 +8,9 @@ using System.Net.Http;
 
 namespace DevDaysSpeakers.Services
 {
+	/// <summary>
+	/// use this class for your ISpeakersService implementation while testing
+	/// </summary>
 	public class SpeakersService : ISpeakersService
 	{
 		private const string JsonResponse =
@@ -17,6 +20,28 @@ namespace DevDaysSpeakers.Services
 		{
 			var items = JsonConvert.DeserializeObject<List<Speaker>>(JsonResponse);
 			return Task.FromResult<List<Speaker>>(items);
+		}
+	}
+
+
+	/// <summary>
+	/// Use this class for your ISpeakersService implementation when deploying the app
+	/// to productions, store, etc ... not this is necessarily ready for production,
+	/// but you can keep different implementations handy.
+	/// </summary>
+	public class WebApiSpeakersService : ISpeakersService
+	{
+		public async Task<List<Speaker>> GetAllSpeakersAsync()
+		{
+			using (var client = new HttpClient())
+			{
+				//grab json from server
+				var json = await client.GetStringAsync("http://demo4404797.mockable.io/speakers");
+
+				//Deserialize json
+				var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
+				return items;
+			}
 		}
 	}
 }
