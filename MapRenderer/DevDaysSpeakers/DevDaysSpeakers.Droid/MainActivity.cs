@@ -21,7 +21,6 @@ namespace DevDaysSpeakers.Droid
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-			global::Xamarin.Forms.Forms.Init(this, bundle);
 			Xamarin.FormsMaps.Init(this, bundle);
 
 			LoadApplication(new App());
