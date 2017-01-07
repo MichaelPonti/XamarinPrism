@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Prism.Navigation;
+using Xamarin.Forms;
 
 namespace DevDaysSpeakers.ViewModel
 {
@@ -62,6 +63,37 @@ namespace DevDaysSpeakers.ViewModel
 
 			/// custom pins is a bindable property for our custom map
 			CustomPins = newPins;
+		}
+
+
+		private Command _commandTest = null;
+		public Command CommandTest
+		{
+			get
+			{
+				return _commandTest ??
+					(_commandTest = new Command(() =>
+					{
+						List<View.CustomPin> newPins = new List<View.CustomPin>();
+
+						var p1 = new View.CustomPin
+						{
+							Pin = new Xamarin.Forms.Maps.Pin
+							{
+								Address = "address 1a",
+								Label = "Label 1a",
+								Position = new Xamarin.Forms.Maps.Position(49.3162, -123.0720),
+							},
+							Id = 1,
+							Url = "http://google.ca"
+						};
+
+						newPins.Add(p1);
+
+						/// custom pins is a bindable property for our custom map
+						CustomPins = newPins;
+					}));
+			}
 		}
 	}
 }
