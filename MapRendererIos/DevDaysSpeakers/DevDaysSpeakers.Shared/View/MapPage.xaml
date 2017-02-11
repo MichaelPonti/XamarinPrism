@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:view="clr-namespace:DevDaysSpeakers.View"
+	xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+	prism:ViewModelLocator.AutowireViewModel="True"
+	xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+	Title="Map"
+	x:Class="DevDaysSpeakers.View.MapPage">
+
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<!-- lets reference our custom map now -->
+		<view:CustomMap x:Name="cusmap"
+						IsShowingUser="True" MapType="Street" 
+						NavigationService="{Binding NavService}"
+						CustomPins="{Binding CustomPins,Mode=TwoWay}" />
+	
+		
+		<Button Grid.Row="1" Text="TEST" Command="{Binding CommandTest}" />
+	</Grid>
+
+
+</ContentPage>
